@@ -216,8 +216,8 @@ public:
     int                     nozzle_id = 0;
     std::string             current_can_id;
     AMSPassRoadSTEP         current_step = AMSPassRoadSTEP::AMS_ROAD_STEP_NONE;
-    AMSAction               current_action;
-    int                     curreent_filamentstep;
+    AMSAction               current_action = AMSAction::AMS_ACTION_NONE;
+    int                     curreent_filamentstep = -1;
     int                     ams_humidity = 0;
     int                     humidity_raw = -1;
     int                     left_dray_time = 0;
