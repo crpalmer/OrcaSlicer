@@ -1991,7 +1991,7 @@ void CalibrationPresetPage::set_cali_method(CalibrationMethod method)
                 m_custom_range_panel->set_titles(titles);
 
                 wxArrayString values;
-                values.push_back(wxString::Format(wxT("%.0f"), 0));
+                values.push_back(wxString::Format(wxT("%.0f"), 0.0));
                 values.push_back(wxString::Format(wxT("%.2f"), 0.05));
                 values.push_back(wxString::Format(wxT("%.3f"), 0.005));
                 m_custom_range_panel->set_values(values);
