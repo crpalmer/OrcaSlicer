@@ -3255,7 +3255,7 @@ void PrintConfigDef::init_fff_params()
     def->sidetext = L("mm");	// millimeters, CIS languages need translation
     def->min      = 0;
     def->mode     = comAdvanced;
-    def->set_default_value(new ConfigOptionFloats{10});
+    def->set_default_value(new ConfigOptionFloats{0});
 
     def = this->add("filament_is_support", coBools);
     def->label = L("Support material");
