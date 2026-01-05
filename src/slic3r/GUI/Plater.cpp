@@ -2540,21 +2540,32 @@ void Sidebar::update_presets(Preset::Type preset_type)
         // Update dual extrudes
         auto* nozzle_diameter = dynamic_cast<const ConfigOptionFloats*>(printer_preset.config.option("nozzle_diameter"));
 
-        bool is_dual_extruder = nozzle_diameter->size() == 2;
+        bool is_dual_extruder = nozzle_diameter && nozzle_diameter->size() == 2;
         p->layout_printer(preset_bundle.use_bbl_network(), isBBL && is_dual_extruder);
         auto diameters = wxGetApp().preset_bundle->printers.diameters_of_selected_printer();
         auto diameter = printer_preset.config.opt_string("printer_variant");
-        auto update_extruder_diameter = [&diameters, &diameter, &nozzle_diameter](int extruder_index,ExtruderGroup & extruder) {
+        if (diameters.empty()) {
+            if (!diameter.empty())
+                diameters.push_back(diameter);
+            else if (nozzle_diameter && !nozzle_diameter->values.empty())
+                diameters.push_back(get_diameter_string(nozzle_diameter->values.front()));
+            else
+                diameters.push_back(""); // keep indexable to avoid crashes when presets are incomplete
+        }
+        auto update_extruder_diameter = [&diameters, &diameter, nozzle_diameter](int extruder_index,ExtruderGroup & extruder) {
             extruder.combo_diameter->Clear();
             int select = -1;
             // ORCA if user defined a custom nozzle in printer config select it instead inherited one. this will show correct nozzle diameter in combobox if its exist in nozzle diameters list
-            auto nozzle_dia = get_diameter_string(nozzle_diameter->values[extruder_index]);
-            if(nozzle_dia != diameter && std::find(diameters.begin(), diameters.end(), nozzle_dia) != diameters.end())
+            const bool has_nozzle_value = nozzle_diameter && extruder_index < nozzle_diameter->size();
+            auto nozzle_dia = has_nozzle_value ? get_diameter_string(nozzle_diameter->values[extruder_index]) : std::string{};
+            if(!nozzle_dia.empty() && nozzle_dia != diameter && std::find(diameters.begin(), diameters.end(), nozzle_dia) != diameters.end())
                 diameter = nozzle_dia;
             // ORCA try to add nozzle diameter from config if list is empty. fixes blank nozzle combo box when preset has no alias
-            if(diameters[0].empty() && !nozzle_dia.empty()){
+            if(!nozzle_dia.empty() && !diameters.empty() && diameters[0].empty()){
                 diameters[0] = nozzle_dia;
                 diameter = nozzle_dia;
+            } else if (!nozzle_dia.empty() && std::find(diameters.begin(), diameters.end(), nozzle_dia) == diameters.end()) {
+                diameters.push_back(nozzle_dia);
             }
             for (size_t i = 0; i < diameters.size(); ++i) {
                 if (diameters[i] == diameter)
