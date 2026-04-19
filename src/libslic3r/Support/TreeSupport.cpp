@@ -2202,7 +2202,6 @@ void TreeSupport::draw_circles()
                     roof_1st_layer.clear();
                     max_layers_above_roof = std::max(max_layers_above_roof, max_layers_above_roof1);
                     max_layers_above_roof1 = 0;
-                    interface_id = obj_layer_nr % top_interface_layers;
                 }
 
                 ExPolygons roofs; append(roofs, roof_1st_layer); append(roofs, roof_areas);append(roofs, roof_gap_areas);
