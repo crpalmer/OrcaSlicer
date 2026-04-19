@@ -639,10 +639,8 @@ void Sidebar::priv::layout_printer(bool isBBL, bool isDual)
     panel_printer_bed->Show(preset_bundle.is_bbl_vendor() || cfg.opt_bool("support_multi_bed_types"));
 
     extruder_dual_sizer->Show(isDual);
+    panel_nozzle_dia->Show(!isDual);
 
-    // NEEDFIX requires AMS check or any type of ???
-    // Single nozzle & non ams
-    panel_nozzle_dia->Show(!isDual && preset_bundle.get_printer_extruder_count() < 2);
     extruder_single_sizer->Show(false);
 }
 
