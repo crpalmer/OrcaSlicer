@@ -22,14 +22,14 @@
 	"default_print_profile": "0.20mm Standard @BBL X2D",
 	"deretract_speed_extruder_change": [
 		"30",
-		"30",
 		"90",
+		"30",
 		"90"
 	],
 	"deretraction_speed": [
 		"30",
-		"30",
 		"20",
+		"30",
 		"20"
 	],
 	"enable_long_retraction_when_cut": "2",
@@ -134,14 +134,14 @@
 	],
 	"retraction_length": [
 		"0.8",
-		"0.8",
 		"2",
+		"0.8",
 		"2"
 	],
 	"retraction_speed": [
 		"30",
-		"30",
 		"20",
+		"30",
 		"20"
 	],
 	"support_chamber_temp_control": "1",
