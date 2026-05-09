@@ -68,7 +68,11 @@ wxMediaCtrl2::wxMediaCtrl2(wxWindow *parent)
             "waylandsink",
             "glimagesink"
         };
+#if 0
         GstElement *video_sink = make_first_available_sink(preferred_wayland_sinks, sizeof(preferred_wayland_sinks) / sizeof(preferred_wayland_sinks[0]));
+#else
+	GstElement *video_sink = nullptr;
+#endif
         if (video_sink != nullptr) {
             g_object_set(G_OBJECT(playbin), "video-sink", video_sink, nullptr);
             gst_object_unref(video_sink);
