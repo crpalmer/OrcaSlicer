@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:25.10
 
 # Install the packages we need
 RUN apt-get update && apt-get install -y sudo
