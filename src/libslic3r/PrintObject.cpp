@@ -1658,12 +1658,12 @@ void PrintObject::detect_surfaces_type()
                 // BBS: the above logic only applys for normal(auto) support. Complete logic:
                 // 1. has support, top z distance=0 (soluble material), auto support
                 // 2. for normal(auto), bridge_no_support is off
-                // 3. for tree(auto), interface top layers=0, max bridge length=0, support_critical_regions_only=false (only in this way the bridge is fully supported)
+                // 3. for tree(auto), interface top layers=0, support_critical_regions_only=false (only in this way the bridge is fully supported)
                 bool bottom_is_fully_supported = this->has_support() && m_config.support_top_z_distance.value == 0 && is_auto(m_config.support_type.value);
                 if (m_config.support_type.value == stNormalAuto)
                     bottom_is_fully_supported &= !m_config.bridge_no_support.value;
                 else if (m_config.support_type.value == stTreeAuto) {
-                    bottom_is_fully_supported &= (m_config.support_interface_top_layers.value > 0 && m_config.max_bridge_length.value == 0 && m_config.support_critical_regions_only.value==false);
+                    bottom_is_fully_supported &= (m_config.support_interface_top_layers.value > 0 && m_config.support_critical_regions_only.value==false);
                 }
                 SurfaceType surface_type_bottom_other = bottom_is_fully_supported ? stBottom : stBottomBridge;
                 for (size_t idx_layer = range.begin(); idx_layer < range.end(); ++ idx_layer) {
