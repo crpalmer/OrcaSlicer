@@ -6133,8 +6133,7 @@ void TabPrinter::toggle_options()
     }
 
     if (m_active_page->title() == L("Multimaterial")) {
-        const bool supports_wipe_tower_2 = !is_BBL_printer && m_config->opt_enum<WipeTowerType>("wipe_tower_type") == WipeTowerType::Type2;
-        toggle_line("wipe_tower_type", !is_BBL_printer);
+        const bool supports_wipe_tower_2 = m_config->opt_enum<WipeTowerType>("wipe_tower_type") == WipeTowerType::Type2;
         // SoftFever: hide specific settings for BBL printer
         for (auto el : {
                  "enable_filament_ramming",
